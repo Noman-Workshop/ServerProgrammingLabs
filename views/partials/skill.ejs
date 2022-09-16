@@ -1,0 +1,12 @@
+<div>
+	<h3 class="w3-padding-16 w3-text-light-grey">My Skills</h3>
+	<br>
+	<% for(let i=0; i<skills.length; i++){ %>
+		<div>
+			<p class="w3-wide"><%=skills[i]['name']%></p>
+			<div class="w3-white">
+				<div class="w3-dark-grey" style="height:28px;width:<%=skills[i]['competency']%>%"></div>
+			</div>
+		</div>
+		<%}%>
+</div>

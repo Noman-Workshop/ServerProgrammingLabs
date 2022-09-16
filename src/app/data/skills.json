@@ -1,0 +1,40 @@
+{
+	"skills": [
+		{
+			"name": "Photography",
+			"competency": 80
+		},
+		{
+			"name": "Web Development",
+			"competency": 90
+		},
+		{
+			"name": "Graphic Design",
+			"competency": 70
+		},
+		{
+			"name": "Programming",
+			"competency": 60
+		},
+		{
+			"name": "Management",
+			"competency": 50
+		},
+		{
+			"name": "Marketing",
+			"competency": 40
+		},
+		{
+			"name": "Business",
+			"competency": 30
+		},
+		{
+			"name": "Finance",
+			"competency": 20
+		},
+		{
+			"name": "Accounting",
+			"competency": 10
+		}
+	]
+}
