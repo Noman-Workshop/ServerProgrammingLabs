@@ -8,14 +8,15 @@
   </head>
   <body>
     <%- include('nav.ejs') %>
-    <form method="POST" action="/books">
+    <form method="POST" action="/update-book">
       <label for="name">Book name:</label><br />
-      <input type="text" id="name" name="name" /><br />
+      <input type="text" id="name" name="name" value="<%=book.name%>" /><br />
       <label for="author">Author name:</label><br />
-      <input type="text" id="author" name="author" /><br />
+      <input type="text" id="author" name="author" value="<%=book.author%>" /><br />
       <label for="genre">Genre:</label><br />
-      <input type="text" id="genre" name="genre" /><br />
-      <input type="submit" value="Add book" />
+      <input type="text" id="genre" name="genre" value="<%=book.genre%>" /><br />
+      <input type="text" name="id" value="<%=book.id%>" hidden /><br />
+      <input type="submit" value="Update Book" />
     </form>
   </body>
 </html>

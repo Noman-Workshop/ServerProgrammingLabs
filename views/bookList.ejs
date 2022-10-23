@@ -15,6 +15,7 @@
     </style>
   </head>
   <body>
+    <%- include('nav.ejs') %>
     <table>
     <tr>
         <th>Book Name</th>
@@ -28,6 +29,8 @@
             <td><%=books[i].name%></td>
             <td><%=books[i].author%></td>
             <td><%=books[i].genre%></td>
+            <td><a href="/delete-book?id=<%=books[i].id%>">Delete</a></td>
+            <td><a href="/update-book-forward?id=<%=books[i].id%>">Update</a></td>
         </tr>
     <%}%>
 </table>

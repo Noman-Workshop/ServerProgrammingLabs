@@ -1,20 +1,9 @@
-const books = require("./../models/books");
 const bookModel = require("./../models/books");
+const { getAllBooks, deleteBookById, getBookById, updateBookObject } = require("../services/book.service");
 
 const getBookList = async (req, res) => {
-  let data = [];
-  let books = [];
-  try {
-    data = await bookModel.find();
-    console.log(data);
-    data.forEach((book) => {
-      books.push({ name: book.name, author: book.author, genre: book.genre });
-    });
-  } catch (error) {
-    console.log(error);
-  } finally {
-    res.render("bookList", { books: books });
-  }
+  const books = await getAllBooks();
+  res.render("bookList", { books: books });
 };
 
 const getBook = (req, res) => {
@@ -40,4 +29,41 @@ const postBook = (req, res) => {
     });
 };
 
-module.exports = { getBookList, getBook, postBook };
+const deleteBook = async (req, res) => {
+  const { id } = req.query;
+  console.log("delete book", id);
+  try {
+    await deleteBookById(id);
+  } catch (error) {
+    console.error(error);
+  } finally {
+		res.redirect("/book-list");
+  }
+}
+
+const updateBookForward = async (req, res) => {
+  const { id } = req.query;
+  console.log(id);
+  book = null;
+  try {
+    book = await getBookById(id);
+    console.log(book);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    res.render("updateBooks", { book })
+  }
+}
+
+const updateBook = async (req, res) => {
+  const { id, name, author, genre } = req.body;
+  try {
+    await updateBookObject({ id, name, author, genre });
+  } catch (error) {
+    console.error(error);
+  } finally {
+		res.redirect("/book-list");
+  }
+}
+
+module.exports = { getBookList, getBook, postBook, deleteBook, updateBookForward, updateBook };
