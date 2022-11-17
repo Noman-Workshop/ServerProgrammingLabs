@@ -2,16 +2,16 @@ const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
 require('dotenv').config();
 
-// // Connecting Mongoose
-// mongoose.connect(process.env.DATABASE_URL, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
+// Connecting Mongoose
+mongoose.connect(process.env.DATABASE_URL, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+});
 
 // Setting up the schema
 const User = new mongoose.Schema({
-  username: String,
-  password: String,
+	username: String,
+	password: String,
 });
 
 // Setting up the passport plugin
