@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const homeController = require("./controllers/homeController");
 const bookController = require("./controllers/bookController");
+const messageController = require("./controllers/messageController");
 const connectEnsureLogin = require('connect-ensure-login');
 const passport = require('passport');
 
@@ -20,5 +21,9 @@ router.post(
 		failureRedirect: '/login',
 		successRedirect: '/dashboard',
 	}), homeController.postLogin);
+router.get("/send-message", connectEnsureLogin.ensureLoggedIn(), messageController.getSendMessage);
+router.post("/send-message", connectEnsureLogin.ensureLoggedIn(), messageController.postSendMessage);
+router.get("/messages", connectEnsureLogin.ensureLoggedIn(), messageController.getMessages);
+router.get("/messages/:id", connectEnsureLogin.ensureLoggedIn(), messageController.getMessagesForUser);
 
 module.exports = router;

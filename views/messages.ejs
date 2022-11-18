@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Messages</title>
+	<style>
+		table,
+		th,
+		td {
+			border: 1px solid black;
+		}
+
+		th,
+		td {
+			padding: 10px;
+		}
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
+		integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+	<!-- Create an select menu with all the users -->
+
+	<select class="form-control" name="receiver" id="userSelect">
+		<% for (let receiver of receivers) { %>
+			<option value="<%= receiver._id%>">
+				<%= receiver.username %>
+			</option>
+			<% } %>
+	</select>
+
+	<div id="chatMessages"></div>
+
+	<script>
+		window.onload = async () => {
+			// Get the select menu
+			console.log("window loaded");
+			const userSelect = document.getElementById('userSelect');
+			// Add an event listener to the select menu
+			userSelect.addEventListener('change', (event) => {
+				console.log("user selected");
+				// Get the value of the select menu
+				const userId = event.target.value;
+				// Get the chat messages div
+				const chatMessages = document.getElementById('chatMessages');
+				// Clear the chat messages div
+				chatMessages.innerHTML = '';
+				// get the messages from the server using axios
+				console.log(axios);
+				axios.get(`/messages/${userId}`)
+					.then((response) => {
+						const messages = response.data;
+						console.log('messages received');
+						// Loop through the messages
+						for (let i = 0; i < messages.length; i++) {
+							// Create a div for the message
+							const messageDiv = document.createElement('div');
+							// Add the message with colors based on user id
+							if (messages[i].sender === userId) {
+								messageDiv.innerHTML = `<span style="color: blue;">${messages[i].message}</span>`;
+							} else {
+								messageDiv.innerHTML = `<span style="color: red;">${messages[i].message}</span>`;
+							}
+							// Add the div to the chat messages div
+							chatMessages.appendChild(messageDiv);
+						}
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			});
+		}
+	</script>
+</body>
+
+</html>
